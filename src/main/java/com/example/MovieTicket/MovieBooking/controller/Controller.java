@@ -2,6 +2,7 @@ package com.example.MovieTicket.MovieBooking.controller;
 
 import java.util.List;
 
+import com.example.MovieTicket.MovieBooking.Exceptions.BadMovieRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,9 +35,14 @@ public class Controller {
 	@PostMapping("/movie")
 	public void addMovie(@Valid @RequestBody Movie movie, BindingResult bindingResult)
 	{
+		/*BindingResult is used to intercept any validation errors that occur when Spring Boot is trying
+		* to map JSON data to Java object. It should be placed immediately after the model object being validated.*/
+
 		if(bindingResult.hasErrors())
 		{
-			throw new RuntimeException("This movie is not valid.");
+			throw new BadMovieRequestException("The movie request body is invalid.");
+			/*We won't see this message on postman because postman intentionally hides the internal
+			* exception logic so that this logic doesn't get exposed.*/
 		}
 		
 		movieService.addNewMovie(movie);
