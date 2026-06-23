@@ -7,8 +7,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
-import com.example.MovieTicket.MovieBooking.Exceptions.IdAlreadyExist;
-import com.example.MovieTicket.MovieBooking.Exceptions.IdNotFound;
+import com.example.MovieTicket.MovieBooking.Exceptions.IdAlreadyExistException;
+import com.example.MovieTicket.MovieBooking.Exceptions.IdNotFoundException;
 import com.example.MovieTicket.MovieBooking.Model.Movie;
 
 @Service
@@ -27,7 +27,7 @@ public class MovieService implements MovieServiceInteface {
 		
 		if(movieMap.containsKey(movie.getId()))
 		{
-			throw new IdAlreadyExist("A movie with id: " + movie.getId() + " already exists.");
+			throw new IdAlreadyExistException("A movie with id: " + movie.getId() + " already exists.");
 		}
 		
 		movieList.add(movie);
@@ -41,7 +41,7 @@ public class MovieService implements MovieServiceInteface {
 		
 		if(ObjectUtils.isEmpty(movie))
 		{
-			throw new IdNotFound("Movie of id: " + id + " not found.");
+			throw new IdNotFoundException("Movie of id: " + id + " not found.");
 		}
 		
 		return movie;
@@ -53,7 +53,7 @@ public class MovieService implements MovieServiceInteface {
 		
 		if(ObjectUtils.isEmpty(movieMap.get(id)))
 		{
-			throw new IdNotFound("Movie of id: " + id + " not found.");
+			throw new IdNotFoundException("Movie of id: " + id + " not found.");
 		}		
 		
 		Movie movie = fetchMovieById(id);

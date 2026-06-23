@@ -4,9 +4,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.CONFLICT)
-public class IdAlreadyExist extends RuntimeException{
+public class IdAlreadyExistException extends RuntimeException{
 
-	public IdAlreadyExist(String message) {
+	public IdAlreadyExistException(String message) {
 		super(message);
 	}
 }
